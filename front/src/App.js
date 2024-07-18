@@ -1,5 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+import ErrorPage from "./Pages/ErrorPage";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" errorElement={<ErrorPage />}></Route>
+  )
+);
 
 function App() {
   return (
