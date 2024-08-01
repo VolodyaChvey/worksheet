@@ -2,11 +2,14 @@ package com.worksheet.controllers;
 
 import com.worksheet.mappers.BasicMapper;
 import com.worksheet.services.RestService;
+import com.worksheet.validator.Marker;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@Validated
 public class BasicController<E, T> {
     @Autowired
     protected RestService<E> restService;
@@ -24,12 +27,14 @@ public class BasicController<E, T> {
     }
 
     @PostMapping
-    public T saveEntity(@RequestBody T dto) {
+    @Validated({Marker.OnCreate.class})
+    public T create(@Valid @RequestBody T dto) {
         return basicMapper.toDto(restService.saveEntity(basicMapper.toEntity(dto)));
     }
 
     @PutMapping("/{id}")
-    public T updateEntity(@RequestBody T dto) {
+    @Validated({Marker.OnUpdate.class})
+    public T update(@Valid @RequestBody T dto) {
         return basicMapper.toDto(restService.saveEntity(basicMapper.toEntity(dto)));
     }
 

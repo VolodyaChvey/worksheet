@@ -27,14 +27,14 @@ public abstract class RestServiceImp<E> implements RestService<E> {
     @Override
     public E saveEntity(E entity) {
         E e = jpaRepository.save(entity);
-        log.error("Entity " + e.getClass() + " was saved successfully");
+        log.info("Entity " + e.getClass() + " was saved successfully");
         return e;
     }
 
     @Override
     public E updateEntity(E entity) {
         E e = jpaRepository.save(entity);
-        log.error("Entity " + e.getClass() + " was updated successfully");
+        log.info("Entity " + e.getClass() + " was updated successfully");
         return e;
     }
 
@@ -45,7 +45,7 @@ public abstract class RestServiceImp<E> implements RestService<E> {
         if (exist) {
             log.error("Entity with id " + id + " was not deleted");
         } else {
-            log.error("Entity with id " + id + " was deleted successfully");
+            log.info("Entity with id " + id + " was deleted successfully");
         }
         return !exist;
     }
