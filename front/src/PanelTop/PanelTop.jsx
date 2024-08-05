@@ -3,13 +3,15 @@ import PagePT from "./PagePT";
 
 export default function PanelTop() {
   return (
-    <Tabs defaultActiveKey="page" justify className="">
-      <Tab eventKey="page" title="Page">
-        <PagePT />
-      </Tab>
-      <Tab eventKey="tools" title="Tools">
-        <div className="linePanel">Tab content for tools</div>
-      </Tab>
-    </Tabs>
+    <div className="panel">
+      <Tabs defaultActiveKey="page" justify className="">
+        <Tab eventKey="page" title="Page">
+          <PagePT />
+        </Tab>
+        <Tab eventKey="tools" title="Tools">
+          <div className="linePanel">Tab content for tools</div>
+        </Tab>
+      </Tabs>
+    </div>
   );
 }

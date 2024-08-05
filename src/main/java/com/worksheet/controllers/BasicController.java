@@ -35,7 +35,7 @@ public class BasicController<E, T> {
     @PutMapping("/{id}")
     @Validated({Marker.OnUpdate.class})
     public T update(@Valid @RequestBody T dto) {
-        return basicMapper.toDto(restService.saveEntity(basicMapper.toEntity(dto)));
+        return basicMapper.toDto(restService.updateEntity(basicMapper.toEntity(dto)));
     }
 
     @DeleteMapping("/{id}")

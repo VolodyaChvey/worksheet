@@ -19,3 +19,11 @@ export const checkParam = ({ fieldName, value, message }) => {
     throw json({ violations }, { status: 400 });
   }
 };
+
+//comparison of objects
+export const isEqual = ({ first, second }) => {
+  return Object.keys({ ...first, ...second })
+  .every(
+    (key) => first[key] === second[key]
+  );
+};

@@ -60,15 +60,15 @@ body {
 }
 /*CreatePage*/
 .top{
-  height: 70%;
+  height: 75%;
   width: 100%;
   top: 0;
   left: 0;
-  overflow: auto;
+  overflow-x: hidden;
   position: fixed;
 }
 .bottom{
-  height: 30%;
+  height: 25%;
   width: 100%;
   left: 0;
   bottom: 0;

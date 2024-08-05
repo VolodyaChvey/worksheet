@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import ErrorPage from "./Pages/ErrorPage";
 import { StartPage, startPageLoader } from "./Pages/StartPage";
-import { CreatePage, documentLoader } from "./Pages/CreatePage";
+import { CreatePage} from "./Pages/CreatePage";
 import CreateDocument from "./Pages/CreateDocument";
 
 const router = createBrowserRouter(
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
     <Route path="/" errorElement={<ErrorPage />}>
       <Route index element={<StartPage />} loader={startPageLoader} />
       <Route path="createDocument" element={<CreateDocument />} />
-      <Route path="createPage/:id"  element={<CreatePage/>} loader={documentLoader}/>
+      <Route path="createPage/:id"  element={<CreatePage/>} />
     </Route>
   )
 );
