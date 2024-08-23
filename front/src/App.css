@@ -40,26 +40,44 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 body {
   text-align: center;
 }
+
 /*CreateDocument*/
-.pageDocument{
+.pageDocument {
   margin-left: auto;
   margin-right: auto;
   width: 148mm;
   height: 210mm;
   line-height: 1.2em;
   padding: 20pt;
-
   box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 }
+
+/*StartPage*/
+.tableDocument {
+  margin-left: auto;
+  margin-right: auto;
+  width: 297mm;
+  height: 210mm;
+  line-height: 1.2em;
+  padding: 20pt;
+  box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+}
+.header{
+  border-bottom: 1px double black;
+  background-color: #bbced6;
+}
+
 /*CreatePage*/
-.top{
+.top {
   height: 75%;
   width: 100%;
   top: 0;
@@ -67,7 +85,8 @@ body {
   overflow-x: hidden;
   position: fixed;
 }
-.bottom{
+
+.bottom {
   height: 25%;
   width: 100%;
   left: 0;
@@ -76,23 +95,28 @@ body {
   position: fixed;
   border-top: 4mm ridge #bbced6;
 }
-.panel{
+
+.panel {
   width: 100%;
-  border:  double;
+  border: double;
 }
-.panelBottom{
+
+.panelBottom {
   height: 40px;
   width: 100%;
-  border:  double;
+  border: double;
 }
-.linePanel{
+
+.linePanel {
   border-top: 0.7px solid;
   padding: 8px;
 }
-.lineIntoPanel{
+
+.lineIntoPanel {
   border-left: 0.7px solid;
   border-right: 0.7px solid;
 }
-.hover:hover{
+
+.hover:hover {
   text-decoration: underline;
 }

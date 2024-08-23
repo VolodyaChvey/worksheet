@@ -16,6 +16,7 @@ function CreatePage() {
   const [document, setDocument] = useState();
   const [pageActive, setPageActive] = useState();
   const [pageShow, setPageShow] = useState();
+  const [message,setMessage ] = useState('');
 
   useEffect(() => {
     async function getDocumentById() {
@@ -30,31 +31,44 @@ function CreatePage() {
   async function onDelete() {
     let del = await deletePage(pageActive.id);
     if (del) {
+      let list = document.pageDtoList.filter((e) => e.id !== pageActive.id);
+      setDocument({ ...document, pageDtoList: list });
+      setPageActive(list[0]);
+      setPageShow(list[0]);
+      setMessage("Page deleted successfully")
     }
   }
 
   async function onAdd() {
     let newPage = {
       documentId: document.id,
-      size: document.pageDtoList.at(-1).size,
-      orientation: document.pageDtoList.at(-1).orientation,
+      size: pageActive.size,
+      orientation: pageActive.orientation,
     };
     let page = await createNewPage(newPage);
+    let doc = await getDocument(id);
+    setMessage("Page added successfully")
     setPageActive(page);
+    setPageShow(page);
+    setDocument(doc);
   }
 
   async function onApply() {
     let page = await updatePage(pageShow);
+    setMessage("Page updated successfully")
+    let index = document.pageDtoList.indexOf(pageActive);
+    let list = document.pageDtoList.with(index, page);
     setPageActive(page);
+    setDocument({ ...document, pageDtoList: list });
   }
   if (document) {
     return (
       <>
         <DocumentContext.Provider value={[pageActive, setPageActive, document]}>
           <div className="top">
-            <LineTopCP document={document} pageActive={pageActive} />
+            <LineTopCP message={message}setMessage={setMessage}/>
             <PageContext.Provider
-              value={[onApply, onAdd, onDelete,pageShow, setPageShow]}
+              value={[onApply, onAdd, onDelete, pageShow, setPageShow]}
             >
               <PanelTop />
               <Page />
@@ -67,6 +81,10 @@ function CreatePage() {
       </>
     );
   }
+}
+
+async function getDocument(id) {
+  return await Get({ path: "/documents/" + id });
 }
 
 async function deletePage(id) {

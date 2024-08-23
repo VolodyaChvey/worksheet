@@ -6,8 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import lombok.Setter;
 @Data
 @NoArgsConstructor
 public class PageDto {
@@ -21,4 +22,5 @@ public class PageDto {
     private String size;
     @ChooseBetween(param1 = "portrait",param2 = "landscape")
     private String orientation;
+
 }

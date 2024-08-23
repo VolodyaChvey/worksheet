@@ -42,6 +42,11 @@ export default function CreateDocument() {
   }
   return (
     <>
+      {" "}
+      <Row className="header py-2 m-2">
+        <Col><Button onClick={()=>navigate(-1)}>Go back</Button></Col>
+        <Col></Col>
+      </Row>
       <Card className="pageDocument">
         <Card.Header>
           <h4>Create new document</h4>
@@ -159,7 +164,7 @@ export default function CreateDocument() {
       await checkName();
       let response = await Post({ path: "/documents", body: { name } });
       await createPages(response.id);
-      onClose()
+      onClose();
       navigate("/createPage/" + response.id);
     } catch (e) {
       let er = await errorValid(e);

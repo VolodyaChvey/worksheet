@@ -10,6 +10,7 @@ import {
 import ErrorPage from "./Pages/ErrorPage";
 import { StartPage, startPageLoader } from "./Pages/StartPage";
 import { CreatePage} from "./Pages/CreatePage";
+import ViewPage from "./Pages/ViewPage";
 import CreateDocument from "./Pages/CreateDocument";
 
 const router = createBrowserRouter(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route index element={<StartPage />} loader={startPageLoader} />
       <Route path="createDocument" element={<CreateDocument />} />
       <Route path="createPage/:id"  element={<CreatePage/>} />
+      <Route path="view/:id" element={<ViewPage/>} />
     </Route>
   )
 );

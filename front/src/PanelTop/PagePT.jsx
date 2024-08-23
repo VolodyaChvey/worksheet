@@ -9,14 +9,14 @@ import {
   Tooltip,
 } from "react-bootstrap";
 import { DocumentContext, PageContext } from "../context";
+import { indexOf, isEqual } from "../data";
 
 export default function PagePT() {
   const [pageActive, setPageActive, document] = useContext(DocumentContext);
   const [onApply, onAdd, onDelete, pageShow, setPageShow] =
     useContext(PageContext);
   const list = document.pageDtoList;
-  const lonely =list.length === 1;
-
+  const lonely = list.length === 1;
 
   function onSize(value) {
     setPageShow({ ...pageShow, size: value });
@@ -24,21 +24,47 @@ export default function PagePT() {
   function onOrientation(value) {
     setPageShow({ ...pageShow, orientation: value });
   }
-  function onPrevious(){
-
+  function onPrevious() {
+    if (list.length > 1) {
+      let index = indexOf({ array: list, obj: pageActive });
+      let page = list[index - 1];
+      setPageActive(page);
+      setPageShow(page);
+    }
   }
-  function onNext(){
 
+  function onNext() {
+    let index = indexOf({ array: list, obj: pageActive });
+    let page = list[index + 1];
+    setPageActive(page);
+    setPageShow(page);
   }
-
   return (
     <>
       <Row className="linePanel">
         <Col>
-          <Button variant="link" onClick={onPrevious} disabled={list.length>0&&list.indexOf(pageActive)>0}>Previous</Button>
+          <Button
+            variant="link"
+            onClick={onPrevious}
+            disabled={
+              !(
+                indexOf({ array: list, obj: pageActive }) > 0 && list.length > 1
+              )
+            }
+          >
+            Previous
+          </Button>
         </Col>
         <Col>
-          <Button variant="link" onClick={onNext}>Next</Button>
+          <Button
+            variant="link"
+            onClick={onNext}
+            disabled={
+              !(list.length > indexOf({ array: list, obj: pageActive }) + 1)
+            }
+          >
+            Next
+          </Button>
         </Col>
         <Col sm={5}>
           <Row className="lineIntoPanel">
@@ -73,9 +99,19 @@ export default function PagePT() {
               </SplitButton>
             </Col>
             <Col>
-              <Button size="sm" variant="outline-dark" onClick={onApply}>
-                Apply
-              </Button>
+              <OverlayTrigger
+                placement="bottom"
+                overlay={<Tooltip>You can update this page</Tooltip>}
+              >
+                <Button
+                  size="sm"
+                  variant="outline-dark"
+                  onClick={onApply}
+                  disabled={isEqual({first:pageShow,second:pageActive})}
+                >
+                  Apply
+                </Button>
+              </OverlayTrigger>
             </Col>
           </Row>
         </Col>

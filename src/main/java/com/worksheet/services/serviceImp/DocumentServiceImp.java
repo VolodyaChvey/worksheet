@@ -61,4 +61,9 @@ public class DocumentServiceImp implements DocumentService {
     public boolean existsByName(String name) {
         return documentRepository.existsByName(name);
     }
+
+    @Override
+    public List<Document> findByNameContaining(String name) {
+        return documentRepository.findByNameIgnoreCaseContaining(name);
+    }
 }

@@ -27,3 +27,13 @@ export const isEqual = ({ first, second }) => {
     (key) => first[key] === second[key]
   );
 };
+
+export const indexOf = ({array,obj})=>{
+  let index = -1;
+  for (let i = 0; i< array.length; i++) {
+    if (array[i].id===obj.id){
+      index = i
+    }
+  }
+  return index;
+}
