@@ -26,8 +26,8 @@ public class DocumentController extends BasicController<Document, DocumentDto> {
         return documentService.existsByName(name);
     }
 
-   /* @GetMapping("/search/{name}")
+  @GetMapping("/search/{name}")
     public List<DocumentDto> findByNameContaining(@PathVariable String name) {
         return documentMapper.toListDTOs(documentService.findByNameContaining(name));
-    }*/
+    }
 }

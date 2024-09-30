@@ -10,9 +10,11 @@ import {
   Row,
 } from "react-bootstrap";
 import TableDocument from "../Common/TableDocument";
-import { useState } from "react";
+import React, { useState } from "react";
 import Delete from "../Controllers/Delete";
 import { checkParam, errorValid, indexOf } from "../data";
+import Message from "../Common/Message";
+import { useDebounce } from "../Common/useDebounce";
 
 function StartPage() {
   const [documents, setDocuments] = useState(useLoaderData());
@@ -23,6 +25,20 @@ function StartPage() {
   const [error, setError] = useState("");
   const [documentId, setDocumentId] = useState();
   const [message, setMessage] = useState("");
+  const [search, setSearch] = useState("");
+  const fun = useDebounce(getSearchDocument);
+
+  async function onSearch(e) {
+    let value = e.target.value;
+    setSearch(value);
+    let response = [];
+    if (value) {
+      response = await fun(value);
+    } else {
+      response = await getAllDocuments();
+    }
+    setDocuments(response);
+  }
 
   function onDelete(id) {
     setDocumentId(id);
@@ -47,7 +63,7 @@ function StartPage() {
       let index = indexOf({ array: documents, obj: doc });
       documents.splice(index, 1, doc);
       setDocuments(documents);
-      console.log("if");
+      setMessage("Document name updated successfully")
       onClose();
     }
   }
@@ -56,12 +72,24 @@ function StartPage() {
     let response = await deleteDocument(documentId);
     if (response) {
       setMessage("document deleted successfully");
+      let doc = await getAllDocuments();
+      setDocuments(doc);
+      setSearch("");
+    } else {
+      setMessage("Something went wrong");
     }
+    setDel(false);
   }
   return (
     <>
       <Row className="header py-2 m-2">
-        <Col>{message}</Col>
+        <Col>
+          <i className="fa-solid fa-magnifying-glass"></i>{" "}
+          <input placeholder="Search" value={search} onChange={onSearch} />
+        </Col>
+        <Col>
+          <Message message={message} setMessage={setMessage} />
+        </Col>
         <Col>
           <Button onClick={() => navigate("/createDocument")}>
             Create new document
@@ -139,6 +167,10 @@ function StartPage() {
       setError(er);
     }
   }
+} 
+
+async function getSearchDocument(name) {
+  return await Get({ path: "/documents/search/" + name });
 }
 
 async function deleteDocument(documentId) {

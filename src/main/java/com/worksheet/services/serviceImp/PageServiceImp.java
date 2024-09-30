@@ -32,7 +32,7 @@ public class PageServiceImp implements PageService {
     @Override
     public Page saveEntity(Page page) {
         Page savedPage = pageRepository.save(page);
-        page.getDocument().getPages().add(savedPage);
+        page.getDocument().addPage(savedPage);
         log.info("Page  with id " + savedPage.getId() + " saved successfully");
         return savedPage;
     }
